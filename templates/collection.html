@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/custom.css') }}">
+
+<title>Collection</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 bg-light text-right">
+      <a class="btn btn-primary" style="margin-bottom: 10px" href="/mint" role="button">Mint</a>
+    </div>
+</div>
+  
+ 
+  {% if nfts|length < 1 %}
+    <h4 style="text-align: center">There are no NFT in collection.</h4>
+  {% else %}
+  <div class="card-columns">
+  
+  {% for nft in nfts %}
+    
+      <div class="card">
+        <img src="{{ nft.imageUrl }}" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">{{ nft.name }}</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item text-truncate">{{ nft.description }}</li>
+            <li class="list-group-item">Token Standard:  <a href="https://mumbai.polygonscan.com/address/{{ nft.address }}"><b>{{ nft.tokenType }}</b></a></li>
+            <li class="list-group-item">Token Id:  <a href="#">{{ nft.tokenId }}</a></li>
+          </ul>
+          <div class="card-body">  
+            <a href="/nft/{{ nft.tokenType }}/{{ nft.tokenId }}" class="card-link">More</a>
+          </div>
+        </div>
+        
+      </div>
+    
+  {% endfor %}
+  
+  </div>
+  {% endif %}  
+</div>
+{% endblock %}

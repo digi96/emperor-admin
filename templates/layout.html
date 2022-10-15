@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    {{ bootstrap.load_css() }}
+   
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+
+    {% from 'bootstrap/nav.html' import render_nav_item %}
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">Emperor</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                {{ render_nav_item('displayAdminOwnedNFTs', 'Collection', use_li=True) }}
+                {{ render_nav_item('listings', 'Listings', use_li=True) }}
+                {{ render_nav_item('payment', 'Payment', use_li=True) }}
+            </ul>
+            
+            <a class="btn btn-outline-success my-2 my-sm-0" href="/admin/wallet">Account</a>
+          
+        </div>
+    </nav>
+    <br>
+    <br>
+    <br>
+    {% block body %}{% endblock%}
+
+    <!-- Optional JavaScript -->
+    {{ bootstrap.load_js() }}
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<title>Mint</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+<h2>鑄造NFT</h2><br>
+<form action="/mint" method="POST" enctype="multipart/form-data">
+  <div class="form-group col-md-16">
+    <label for="name" class="control-label">名稱</label>
+    <input type="text" class="form-contorl" style="width:100%" name="name" id="name">
+  </div>
+
+  <div class="form-group col-md-16">
+    <label for="description" class="control-label">描述</label>
+    <textarea class="form-contorl" style="width:100%" name="description" id="description" rows="5"></textarea>
+  </div>
+
+  <div class="form-group col-md-16">
+    <label for="file" class="control-label">圖檔</label>
+    <input type="file" class="form-control" name="file" id="file">
+  </div>
+
+  <div class="form-group col-md-16">
+    <label for="amount" class="control-label">數量</label>
+    <input type="text" class="form-contorl" style="width:100%" name="amount" id="amount" value="1">
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <input type="text" class="form-control" placeholder="年代" aria-label="年代" name="age" id="age">
+    </div>
+    <div class="col">
+      <input type="text" class="form-control" placeholder="媒材" aria-label="媒材" name="media" id="media">
+    </div> 
+    <div class="col">
+      <input type="text" class="form-control" placeholder="尺寸" aria-label="尺寸" name="size" id="size">
+    </div>
+    <div class="col">
+      <input type="text" class="form-control" placeholder="鈐印" aria-label="鈐印" name="stamp" id="stamp">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col">
+      <input type="text" class="form-control" placeholder="款織" aria-label="款織" name="comment" id="comment">
+    </div>
+  </div>
+
+  <div class="form-group col-md-8">
+  </div>
+
+  <div class="form-group col-md-16 text-right">
+    <input type="submit" class="btn btn-primary" value="Upload">
+  </div>
+  
+
+</form>
+
+</div>
+
+{% endblock %}

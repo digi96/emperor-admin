@@ -1,0 +1,69 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<title>NFT</title>
+{% endblock %}
+
+{% block body %}
+<div class="container" style="text-align:left">
+      <div class="row">
+        <div class="col-8">
+          <div class="container">
+            <img src="{{ nft.imageUrl }}" style="max-width: 100%">
+              <h5>{{ nft.name }}</h5>
+              <p>Token ID {{ nft.tokenId }}</p>
+              <p>{{ nft.description }}</p>
+              <p></p>
+              {% for trait in nft.traits %}
+                <p>{{ trait.trait_type }}: {{ trait.value }}</p>
+              {% endfor %}
+              <p><a href="https://mumbai.polygonscan.com/address/{{ nft.address }}">{{ nft.tokenType }}</a></p>
+              {% if isListed %}
+                <p>上架中</p>
+                <p> {{ listing.price }} ETH</p>
+              {% else %}
+                {% if nft.tokenType == 'ERC1155' %}
+                  <p>Balance: {{ tokenBalance }}</p>
+                {% endif %}
+              {% endif %}
+
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-8">
+            {% if not isListed %}
+              <div class="container">
+                <h2>建立一級市場Listing</h2>
+                <form action="/listings" method="POST">
+                  <input type="hidden" name="tokenId" value="{{ nft.tokenId }}">
+                  <input type="hidden" name="tokenType" value="{{ nft.tokenType }}">
+                  <div class="mb-4">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="text" class="form-control" name="price" id="price">
+                    <div id="priceHelp" class="form-text">Price unit should be ether</div>
+                  </div>
+                
+                  <div class="mb-4">
+                    <label for="paymentSplitterAddress" class="form-label">PaymentSplitter</label>
+                    <select id="paymentSplitterAddress" name="paymentSplitterAddress" class="form-select">
+                      {% for p in payments %}
+                        <option value="{{ p.contract_address }}">{{ p.title }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Submit</button>                
+                </form>
+              </div>
+            {% else %}
+              <div class="container">
+                <form action="/listings/delisting" method="POST">
+                  <input type="hidden" name="listingId" value="{{ listing.listingId }}">
+                  <button type="submit" class="btn btn-primary">Delisting</button>
+                </form>
+              </div>
+            {% endif %}
+        </div>
+      </div>
+</div>
+{% endblock %}

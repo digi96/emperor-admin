@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+{% if status == 'Incomplete' %}
+  <script>
+    setTimeout("location.reload(true);",5000);
+  </script>
+{% endif %}
+<title>Transaction Check</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  {% if status == 'Incomplete' %}
+    <p>Page will reload in 5 seconds...</p>
+  {% endif %}
+  <p>Transaction</p>
+  <p>{{ txHash }}</p>
+  <p>{{ status }}</p>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<title>Create Payment</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  <h1 style="text-align: left">分潤設定</h1>
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <a class="btn btn-primary" style="margin-bottom: 20px" href="/payment/create" role="button">新增</a>
+    </div>
+  </div>
+ {% if wrappedPayments|length < 1 %}
+ <h4 style="text-align: center">There are no payments. Create one below</h4>
+ {% else %}
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>代號地址</th>
+    <th>分潤地址</th>
+    <th>未請款額</th>
+    <th>建立時間</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for wpayment in wrappedPayments %}
+  
+  <tr>
+    <td><h3>{{ wpayment.payment.title }}</h3><br>{{ wpayment.payment.contract_address }}</td>
+    
+    <td>
+      <p>地址一<br>{{ wpayment.payment.payment_address1 }} </p>
+      
+      <p>比率:&nbsp;{{ wpayment.payment.share1 }}&nbsp;<a href="/payment/release?contractAddress={{ wpayment.payment.contract_address }}&releaseAddress={{ wpayment.payment.payment_address1 }}">
+        請款</a>
+      </p>
+      <br>
+      {% if wpayment.payment.payment_address2!='' %}
+        <br>
+        <p>地址二<br>{{ wpayment.payment.payment_address2 }}</p>
+        
+        <p>比率:&nbsp;{{ wpayment.payment.share2 }}&nbsp;<a href="/payment/release?contractAddress={{ wpayment.payment.contract_address }}&releaseAddress={{ wpayment.payment.payment_address2 }}">
+          請款</a>
+        </p>  
+      {% endif %}
+    </td>
+    <td>{{ wpayment.balance }}</td>
+    <td>{{ wpayment.payment.date_created.date() }}</td>
+  </tr>
+  {% endfor %}
+</tbody>
+</table>
+{% endif %}
+</div>
+
+{% endblock %}

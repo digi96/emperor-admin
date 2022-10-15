@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<title>Mint</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+<h2>建立分潤設定</h2><br>
+<form action="/payment" method="POST">
+  <div class="form-group col-md-16">
+    <label class="control-label" for="title">代號</label>
+    <input type="text" class="form-contorl" style="width:100%" name="title" id="title">
+  </div>
+  <div class="fomr-group col-md-16">
+    <label class="control-label" for="address1">分潤地址一</label>
+    <input type="text" class="form-contorl" style="width:100%" name="address1" id="address1">
+    <label class="control-label" for="share1">分潤比例一</label>
+    <input type="text" class="form-contorl" style="width:100%" name="share1" id="share1">
+  </div>
+  <div class="fomr-group col-md-16">
+    <label class="control-label" for="address2">分潤地址二</label>
+    <input type="text" class="form-contorl" style="width:100%" name="address2" id="address1">
+    <label class="control-label" for="share2">分潤比例二</label>
+    <input type="text" class="form-contorl" style="width:100%" name="share2" id="share2">
+  </div>
+  <div class="form-group col-md-16 text-right">
+    <input type="submit" class="btn btn-primary" style="margin-top: 20px" value="新增">
+  </div>
+</form>
+
+</div>
+
+{% endblock %}

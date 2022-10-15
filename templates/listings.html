@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/custom.css') }}">
+<title>Listings</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  {% if listings|length < 1 %}
+    <h4 style="text-align: center">There are no listings.</h4>
+  {% else %}
+  <div class="card-columns">
+    {% for listing in listings %}
+    <div class="card">
+      <img src="{{ listing['nft'].imageUrl }}" class="card-img-top">
+      
+      <div class="card-body">
+        
+        <h5 class="card-title">{{ listing['nft'].name }}</h5>
+        <p class="card-text text-truncate">{{ listing['nft'].description }}</p>
+        
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">{{ listing['price'] }} ETH</li>
+          <li class="list-group-item">Market:  
+            {% if listing['listingType'] == 0 %}
+              一級
+            {% endif %}
+            {% if listing['listingType'] == 1 %}
+              二級
+            {% endif %}
+          </li>
+          <li class="list-group-item">Token Standard:  <a href="https://mumbai.polygonscan.com/address/{{ listing['nft'].address }}"><b>{{ listing['nft'].tokenType }}</b></a></li>
+          <li class="list-group-item">Token ID:  <a href="#">{{ listing['tokenId'] }}</a></li>
+        </ul>
+        <div class="card-body">
+          <a href="/nft/{{ listing['nft'].tokenType }}/{{ listing.tokenId }}?listingId={{ listing['listingId']}}" class="card-link">More</a>
+        </div>
+        
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}  
+</div>
+{% endblock %}
